@@ -1,0 +1,77 @@
+[
+    {
+        "question" :"Тема - род существительных", "items" : [
+            {
+            "quest":"Какие существительные вообще не имеют рода?", "answers":
+            [                
+                {
+                    "answer": "окна, двери",
+                    "result": false
+                },
+                {
+                    "answer": "столы, стулья",
+                    "result": false
+                },
+                {
+                    "answer": "книги, тетради",
+                    "result": false
+                },
+                {
+                    "answer": "каникулы, сутки",
+                    "result": true
+                },
+                {
+                    "answer": "праздники, дни",
+                    "result": false
+                }
+            ]},{
+            "quest":"Какое из существительных относится к женскому роду?", "answers":
+            [                
+                {
+                    "answer": "бюллетень",
+                    "result": false
+                },
+                {
+                    "answer": "конь",
+                    "result": false
+                },
+                {
+                    "answer": "кремень",
+                    "result": false
+                },
+                {
+                    "answer": "студень",
+                    "result": false
+                },
+                {
+                    "answer": "герань",
+                    "result": true
+                }
+            ]},{
+            "quest":"Какое из существительных относится к мужскому роду?", "answers":
+            [                
+                {
+                    "answer": "степень",
+                    "result": false
+                },
+                {
+                    "answer": "пристань",
+                    "result": false
+                },
+                {
+                    "answer": "гармонь",
+                    "result": false
+                },
+                {
+                    "answer": "шампунь",
+                    "result": true
+                },
+                {
+                    "answer": "тень",
+                    "result": false
+                }
+            ]}
+            
+        ]
+    }
+]
