@@ -17,6 +17,10 @@
         <p>Загрузите ваш тест - файл с расширением JSON</p>
 
 <?php
+if (empty(($_POST['add']))) {
+    echo "Загрузите ваш тест - файл с расширением JSON<br><br>";
+}
+
 if (isset($_POST) && isset($_FILES) && isset($_FILES['testfile'])) {
     $fileName = $_FILES['testfile']['name'];
     $tmpFile = $_FILES['testfile']['tmp_name'];
@@ -38,7 +42,7 @@ if (isset($_POST) && isset($_FILES) && isset($_FILES['testfile'])) {
 ?>
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="testfile">
-            <input type="submit" value="Загрузить">
+            <input type="submit" name="add" value="Загрузить">
         </form>
 
         <p>Выберите тест для прохождения</p>
