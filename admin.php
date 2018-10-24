@@ -13,12 +13,14 @@
 </head>
 <body>
 
-    <div>
-        <p>Загрузите ваш тест - файл с расширением JSON</p>
+    <div>      
 
 <?php
+ini_set('display_errors','Off');
 if (empty(($_POST['add']))) {
-    echo "Загрузите ваш тест - файл с расширением JSON<br><br>";
+?>
+<p>Загрузите ваш тест - файл с расширением JSON</p>
+<?php
 }
 
 if (isset($_POST) && isset($_FILES) && isset($_FILES['testfile'])) {
