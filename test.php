@@ -1,11 +1,18 @@
 <?php
 $fileList = glob('uploads/*.json');
+if (!isset($_GET['test'])) {
+?>
+     <p>Такого теста не существует</p>
+      <p><a href="list.php">Список тестов</a></p>
+<?php
+    exit;
+}
 foreach ($fileList as $key => $file) {
-        if ($key == $_GET['test']) {
-                $fileTest = file_get_contents($fileList[$key]);
-                $decodeFile = json_decode($fileTest, true);
-                $test = $decodeFile;
-        }
+    if ($key == $_GET['test']) {
+        $fileTest = file_get_contents($fileList[$key]);
+        $decodeFile = json_decode($fileTest, true);
+        $test = $decodeFile;
+    }
 }
 ?>
 <!doctype html>
@@ -19,6 +26,9 @@ foreach ($fileList as $key => $file) {
        fieldset {
         margin-bottom: 10px;          
        }
+       .add {
+        margin-bottom: 10px;
+       }
        h3 {
         margin: 0;
        }
@@ -28,49 +38,66 @@ foreach ($fileList as $key => $file) {
        p {
         margin: 0;
        }
+       label {
+        margin-right: 10px; 
+       }
     </style>
     <title>Тесты</title>
 </head>
 <body>
-<form action="" method="post" enctype=multipart/form-data>
+  <form action="" method="post" enctype=multipart/form-data>
     <fieldset>
-        <legend><h3><?= $test[0]['question'] ?></h3></legend>
+      <legend><h3><?= $test[0]['question'] ?></h3></legend>
 
 <?php
 for ($i = 0; $i < count($test[0]['items']); $i++) {
 ?>
-   <p><h4><?= $test[0]['items'][$i]['quest'] ?></h4></p>
+     <p><h4><?= $test[0]['items'][$i]['quest'] ?></h4></p>
     <?php
-        for ($k = 0; $k < count($test[0]['items'][$i]['answers']); $k++) {
-                $arrResultRight[] = $test[0]['items'][$i]['answers'][$k]['result'];
-                
+    for ($k = 0; $k < count($test[0]['items'][$i]['answers']); $k++) {
+        $arrResultRight[] = $test[0]['items'][$i]['answers'][$k]['result'];
 ?>
-   <p><label><input type=radio name="<?= $test[0]['items'][$i]['quest'] ?>" value="<?= $test[0]['items'][$i]['answers'][$k]['result'] ?>"><?= $test[0]['items'][$i]['answers'][$k]['answer'] ?></label></p>
+     <label><input type=radio name="<?= $i ?>" value="<?= $test[0]['items'][$i]['answers'][$k]['answer'] ?>"><?= $test[0]['items'][$i]['answers'][$k]['answer'] ?></label>
     <?php
-                
-        }
+    }
 }
-
 ?>
-</fieldset>
-<input type="submit" name="add" value="Отправить">
-</form> 
+   </fieldset>
+    <input class="add" type="submit" name="add" value="Отправить">
+  </form> 
  <?php
 if (empty($_POST['add'])) {
-        echo "Введите данные в форму";
-} else {
-        foreach ($_POST as $value) {
-                $arrResult[] = $value;
-        }
-        $arrResult = array_sum($arrResult);
-        
-        $arrResultRight = array_sum($arrResultRight);
-        
-        if ($arrResult === $arrResultRight) {
-                echo ' Отлично';
-        } else {
-                echo ' Попробуйте еще раз';
-        }
-}
-
 ?>
+     <p>Введите данные в форму</p>
+      <p><a href="list.php">Список тестов</a></li></p>
+<?php
+    exit;
+} else {
+    foreach ($test[0]['items'] as $key => $value) {
+        for ($i = 0; $i < count($_POST); $i++) {
+            if ($i == $key) {
+                for ($k = 0; $k < count($test[0]['items'][$i]['answers']); $k++) {
+                    if ($_POST[$i] === $test[0]['items'][$i]['answers'][$k]['answer']) {
+                        $arrResult[] = $test[0]['items'][$i]['answers'][$k]['result'];
+                    }
+                }
+            }
+        }
+    }
+}
+$arrResult = array_sum($arrResult);
+$arrResultRight = array_sum($arrResultRight);
+if ($arrResult === $arrResultRight) {
+?>
+     <h4>Отлично</h4>
+<?php
+} else {
+?>
+     <h4>Попробуйте еще раз</h4>
+<?php
+}
+?>
+ <a href="list.php">Список тестов</a></li>
+
+</body>
+</html>
